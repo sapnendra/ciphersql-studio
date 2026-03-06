@@ -1,0 +1,115 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.auth-form {
+  width: 100%;
+  max-width: 420px;
+  @include m.card(v.$color-surface);
+  box-shadow: v.$shadow-lg;
+
+  @include m.tablet {
+    padding: v.$space-10;
+  }
+
+  // ── Header ──
+  &__header {
+    text-align: center;
+    margin-bottom: v.$space-8;
+  }
+
+  &__logo {
+    @include m.flex-center;
+    gap: v.$space-2;
+    margin-bottom: v.$space-6;
+
+    &-icon {
+      font-size: v.$font-size-2xl;
+      color: v.$color-primary;
+    }
+
+    &-text {
+      font-family: v.$font-heading;
+      font-size: v.$font-size-lg;
+      font-weight: v.$font-weight-bold;
+      color: v.$color-heading;
+    }
+
+    &-accent {
+      color: v.$color-primary;
+    }
+  }
+
+  &__title {
+    @include m.heading(v.$font-size-xl);
+    margin-bottom: v.$space-2;
+  }
+
+  &__subtitle {
+    @include m.body-text(v.$font-size-sm);
+    color: v.$color-muted;
+  }
+
+  // ── Form Body ──
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-5;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-2;
+  }
+
+  &__label {
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    color: v.$color-body;
+  }
+
+  &__input {
+    width: 100%;
+    padding: v.$space-3 v.$space-4;
+    background: v.$color-card;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-md;
+    color: v.$color-heading;
+    font-size: v.$font-size-base;
+    font-family: v.$font-body;
+    transition: border-color v.$transition-fast, box-shadow v.$transition-fast;
+    min-height: 44px;
+
+    &::placeholder {
+      color: v.$color-muted;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: v.$color-primary;
+      box-shadow: 0 0 0 3px rgba(v.$color-primary, 0.15);
+    }
+  }
+
+  // ── Footer ──
+  &__footer {
+    text-align: center;
+    margin-top: v.$space-6;
+    padding-top: v.$space-6;
+    border-top: 1px solid v.$color-border;
+
+    p {
+      font-size: v.$font-size-sm;
+      color: v.$color-muted;
+    }
+
+    a {
+      color: v.$color-primary-light;
+      font-weight: v.$font-weight-medium;
+
+      &:hover {
+        color: v.$color-primary;
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+// ─── Base Button ─────────────────────────────────────────────
+.btn {
+  @include m.btn-base;
+  @include m.focus-ring;
+
+  // ── Variants ──
+  &--primary {
+    background: v.$color-primary;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: v.$color-primary-dark;
+      box-shadow: v.$shadow-glow;
+      transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: v.$color-body;
+    border: 1px solid v.$color-border;
+
+    &:hover:not(:disabled) {
+      border-color: v.$color-primary;
+      color: v.$color-primary-light;
+      background: rgba(v.$color-primary, 0.08);
+    }
+  }
+
+  &--success {
+    background: v.$color-success;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: #16a34a;
+    }
+  }
+
+  &--danger {
+    background: v.$color-error;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: #dc2626;
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: v.$color-muted;
+
+    &:hover:not(:disabled) {
+      color: v.$color-body;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  // ── Sizes ──
+  &--sm {
+    padding: v.$space-2 v.$space-3;
+    font-size: v.$font-size-xs;
+    min-height: 36px;
+  }
+
+  &--lg {
+    padding: v.$space-4 v.$space-8;
+    font-size: v.$font-size-md;
+    min-height: 52px;
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  // ── Loading ──
+  &--loading {
+    position: relative;
+    color: transparent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: v.$radius-full;
+      animation: btn-spin 0.7s linear infinite;
+    }
+  }
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,59 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.hint-box {
+  &__content {
+    background: rgba(v.$color-warning, 0.08);
+    border: 1px solid rgba(v.$color-warning, 0.3);
+    border-radius: v.$radius-lg;
+    padding: v.$space-4 v.$space-5;
+  }
+
+  &__header {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-2;
+    margin-bottom: v.$space-3;
+  }
+
+  &__icon {
+    font-size: v.$font-size-md;
+  }
+
+  &__label {
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-semibold;
+    color: v.$color-warning;
+    flex: 1;
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    color: v.$color-muted;
+    cursor: pointer;
+    font-size: v.$font-size-xs;
+    padding: v.$space-1;
+    border-radius: v.$radius-sm;
+    transition: color v.$transition-fast;
+    line-height: 1;
+
+    &:hover {
+      color: v.$color-body;
+    }
+  }
+
+  &__text {
+    font-size: v.$font-size-sm;
+    color: v.$color-body;
+    line-height: 1.7;
+  }
+
+  &__fallback {
+    margin-top: v.$space-3;
+    font-size: v.$font-size-xs;
+    color: v.$color-muted;
+    font-style: italic;
+    border-top: 1px solid rgba(v.$color-warning, 0.2);
+    padding-top: v.$space-2;
+  }
+}

@@ -1,0 +1,133 @@
+@use '../styles/variables' as v;
+@use '../styles/mixins' as m;
+
+.assignments-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+
+  &__total {
+    font-size: v.$font-size-sm;
+    color: v.$color-muted;
+    background: v.$color-surface;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-full;
+    padding: v.$space-2 v.$space-4;
+  }
+
+  // ── Filters ──
+  &__filters {
+    @include m.flex(column, flex-start, stretch);
+    gap: v.$space-4;
+    margin-bottom: v.$space-6;
+
+    @include m.tablet {
+      @include m.flex(row, space-between, center);
+    }
+  }
+
+  &__search {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-2;
+    flex: 1;
+
+    &-input {
+      flex: 1;
+      padding: v.$space-3 v.$space-4;
+      background: v.$color-surface;
+      border: 1px solid v.$color-border;
+      border-radius: v.$radius-md;
+      color: v.$color-heading;
+      font-size: v.$font-size-sm;
+      font-family: v.$font-body;
+      transition: border-color v.$transition-fast, box-shadow v.$transition-fast;
+      min-height: 44px;
+
+      &::placeholder {
+        color: v.$color-muted;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: v.$color-primary;
+        box-shadow: 0 0 0 3px rgba(v.$color-primary, 0.12);
+      }
+    }
+  }
+
+  &__difficulty-filter {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-2;
+    flex-wrap: wrap;
+  }
+
+  // ── Loading Skeleton ──
+  &__loading {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: v.$space-4;
+
+    @include m.tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include m.laptop {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include m.desktop {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__skeleton {
+    background: linear-gradient(
+      90deg,
+      v.$color-surface 25%,
+      #233044 50%,
+      v.$color-surface 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    height: 160px;
+    border-radius: v.$radius-lg;
+    border: 1px solid v.$color-border;
+  }
+
+  // ── States ──
+  &__error,
+  &__empty {
+    @include m.flex-center;
+    padding: v.$space-16;
+    color: v.$color-muted;
+    font-size: v.$font-size-sm;
+    text-align: center;
+
+    p {
+      color: v.$color-muted;
+    }
+  }
+
+  &__error p {
+    color: v.$color-error;
+  }
+
+  // ── Pagination ──
+  &__pagination {
+    @include m.flex-center;
+    gap: v.$space-4;
+    margin-top: v.$space-8;
+    padding-top: v.$space-6;
+    border-top: 1px solid v.$color-border;
+  }
+
+  &__page-info {
+    font-size: v.$font-size-sm;
+    color: v.$color-muted;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

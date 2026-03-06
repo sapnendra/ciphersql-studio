@@ -1,0 +1,94 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+// ─── Results Table ────────────────────────────────────────────
+.results-table {
+  width: 100%;
+  overflow-x: auto;
+  @include m.custom-scrollbar;
+
+  &__container {
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: v.$font-size-sm;
+    font-family: v.$font-body;
+  }
+
+  &__head {
+    th {
+      background: v.$color-surface;
+      color: v.$color-muted;
+      font-weight: v.$font-weight-semibold;
+      font-size: v.$font-size-xs;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: v.$space-3 v.$space-4;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid v.$color-border;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+
+      &:first-child {
+        border-radius: v.$radius-md 0 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 v.$radius-md 0 0;
+      }
+    }
+  }
+
+  &__body {
+    tr {
+      transition: background v.$transition-fast;
+
+      &:nth-child(even) {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      &:hover {
+        background: rgba(v.$color-primary, 0.06);
+      }
+    }
+
+    td {
+      padding: v.$space-3 v.$space-4;
+      color: v.$color-body;
+      border-bottom: 1px solid rgba(v.$color-border, 0.5);
+      white-space: nowrap;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: v.$font-size-xs;
+
+      &.null-value {
+        color: v.$color-muted;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+// ─── Sample Data Table ────────────────────────────────────────
+.sample-table {
+  margin-bottom: v.$space-6;
+
+  &__name {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-2;
+    margin-bottom: v.$space-3;
+
+    &-icon {
+      width: 20px;
+      height: 20px;
+      color: v.$color-primary;
+    }
+
+    &-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: v.$font-size-sm;
+      font-weight: v.$font-weight-semibold;
+      color: v.$color-primary-light;
+    }
+  }
+}

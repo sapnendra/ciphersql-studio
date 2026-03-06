@@ -1,0 +1,71 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.sample-data-viewer {
+  background: v.$color-surface;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  padding: v.$space-5;
+  overflow-x: auto;
+
+  @include m.custom-scrollbar;
+
+  &__header {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-2;
+    margin-bottom: v.$space-5;
+    padding-bottom: v.$space-3;
+    border-bottom: 1px solid v.$color-border;
+  }
+
+  &__icon {
+    font-size: v.$font-size-md;
+    color: v.$color-primary;
+  }
+
+  &__title {
+    @include m.heading(v.$font-size-sm, v.$font-weight-semibold);
+    color: v.$color-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  &__col-type {
+    display: inline-block;
+    margin-left: v.$space-2;
+    font-size: 10px;
+    color: v.$color-muted;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: v.$font-weight-normal;
+    text-transform: lowercase;
+  }
+
+  &__empty {
+    text-align: center;
+    color: v.$color-muted;
+    font-style: italic;
+    padding: v.$space-4;
+  }
+
+  .sample-table {
+    &__name {
+      &-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: v.$font-size-sm;
+        font-weight: v.$font-weight-semibold;
+        color: v.$color-primary-light;
+        margin-bottom: v.$space-3;
+        display: block;
+      }
+    }
+  }
+
+  .results-table {
+    overflow-x: auto;
+    max-height: 200px;
+    overflow-y: auto;
+    @include m.custom-scrollbar;
+    border-radius: v.$radius-md;
+    border: 1px solid v.$color-border;
+  }
+}

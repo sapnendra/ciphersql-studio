@@ -1,0 +1,13 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.sql-editor {
+  &__loading {
+    @include m.flex-center;
+    height: 240px;
+    color: v.$color-muted;
+    font-size: v.$font-size-sm;
+    background: v.$color-card;
+    font-family: 'JetBrains Mono', monospace;
+  }
+}

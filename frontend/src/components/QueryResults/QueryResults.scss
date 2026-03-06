@@ -1,0 +1,112 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.query-results {
+  background: v.$color-surface;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  overflow: hidden;
+  min-height: 240px;
+  max-height: 580px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  // ── Loading ──
+  &--loading {
+    @include m.flex-center;
+    gap: v.$space-3;
+    color: v.$color-muted;
+    font-size: v.$font-size-sm;
+  }
+
+  &__spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(v.$color-primary, 0.2);
+    border-top-color: v.$color-primary;
+    border-radius: v.$radius-full;
+    animation: spin 0.7s linear infinite;
+  }
+
+  // ── Error ──
+  &--error {
+    @include m.flex(row, flex-start, flex-start);
+    gap: v.$space-4;
+    padding: v.$space-6;
+    background: rgba(v.$color-error, 0.06);
+    border-color: rgba(v.$color-error, 0.25);
+  }
+
+  &__error-icon {
+    font-size: v.$font-size-xl;
+    color: v.$color-error;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &__error-title {
+    font-weight: v.$font-weight-semibold;
+    color: v.$color-error;
+    margin-bottom: v.$space-2;
+    font-size: v.$font-size-sm;
+  }
+
+  &__error-msg {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: v.$font-size-xs;
+    color: v.$color-body;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  // ── Empty ──
+  &--empty {
+    @include m.flex(column, center, center);
+    gap: v.$space-2;
+    padding: v.$space-10;
+    text-align: center;
+
+    p {
+      color: v.$color-muted;
+      font-size: v.$font-size-sm;
+    }
+  }
+
+  &__empty-icon {
+    font-size: v.$font-size-2xl;
+    color: v.$color-border;
+    margin-bottom: v.$space-2;
+  }
+
+  &__empty-hint {
+    font-size: v.$font-size-xs !important;
+    color: #6b7280 !important;
+  }
+
+  // ── Results ──
+  &__meta {
+    padding: v.$space-3 v.$space-4;
+    border-bottom: 1px solid v.$color-border;
+    background: rgba(v.$color-success, 0.06);
+  }
+
+  &__count {
+    font-size: v.$font-size-xs;
+    color: v.$color-success;
+    font-weight: v.$font-weight-semibold;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .results-table {
+    overflow-x: auto;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0; // required for flex child scrolling to work
+    @include m.custom-scrollbar;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

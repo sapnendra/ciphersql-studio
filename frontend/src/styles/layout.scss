@@ -1,0 +1,111 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+// ─── Page Layout ─────────────────────────────────────────────
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    flex: 1;
+    padding: v.$space-6 v.$space-4;
+
+    @include m.tablet {
+      padding: v.$space-8 v.$space-6;
+    }
+
+    @include m.laptop {
+      padding: v.$space-10 v.$space-8;
+    }
+  }
+}
+
+// ─── Auth Layout ─────────────────────────────────────────────
+.auth-layout {
+  min-height: 100vh;
+  @include m.flex-center;
+  background: v.$color-bg;
+  padding: v.$space-4;
+
+  // Subtle grid pattern
+  background-image: radial-gradient(
+    circle at 25px 25px,
+    rgba(v.$color-border, 0.3) 1px,
+    transparent 0
+  );
+  background-size: 50px 50px;
+}
+
+// ─── Assignments Grid ────────────────────────────────────────
+.assignments-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: v.$space-4;
+
+  @include m.tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: v.$space-5;
+  }
+
+  @include m.laptop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: v.$space-6;
+  }
+
+  @include m.desktop {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// ─── Workspace Layout ────────────────────────────────────────
+.workspace-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: v.$space-4;
+  padding: v.$space-4;
+  min-height: calc(100vh - 64px);
+
+  @include m.laptop {
+    grid-template-columns: 380px 1fr;
+    grid-template-rows: 1fr;
+    gap: v.$space-4;
+    padding: v.$space-4;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+
+    @include m.custom-scrollbar;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-4;
+    min-height: 0;
+  }
+}
+
+// ─── Section Header ──────────────────────────────────────────
+.section-header {
+  @include m.flex-between;
+  margin-bottom: v.$space-6;
+  flex-wrap: wrap;
+  gap: v.$space-4;
+
+  &__title {
+    @include m.heading(v.$font-size-xl);
+  }
+
+  &__subtitle {
+    @include m.body-text(v.$font-size-sm);
+    color: v.$color-muted;
+    margin-top: v.$space-1;
+  }
+}

@@ -1,0 +1,92 @@
+.results-table {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #374151 #1E293B;
+}
+.results-table::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.results-table::-webkit-scrollbar-track {
+  background: #1E293B;
+  border-radius: 9999px;
+}
+.results-table::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 9999px;
+}
+.results-table::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+.results-table__container {
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  font-family: "Inter", sans-serif;
+}
+.results-table__head th {
+  background: #1E293B;
+  color: #9CA3AF;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid #374151;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.results-table__head th:first-child {
+  border-radius: 8px 0 0 0;
+}
+.results-table__head th:last-child {
+  border-radius: 0 8px 0 0;
+}
+.results-table__body tr {
+  transition: background 150ms ease;
+}
+.results-table__body tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+.results-table__body tr:hover {
+  background: rgba(99, 102, 241, 0.06);
+}
+.results-table__body td {
+  padding: 0.75rem 1rem;
+  color: #D1D5DB;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+  white-space: nowrap;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 0.75rem;
+}
+.results-table__body td.null-value {
+  color: #9CA3AF;
+  font-style: italic;
+}
+
+.sample-table {
+  margin-bottom: 1.5rem;
+}
+.sample-table__name {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.sample-table__name-icon {
+  width: 20px;
+  height: 20px;
+  color: #6366F1;
+}
+.sample-table__name-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #A5B4FC;
+}/*# sourceMappingURL=tables.css.map */

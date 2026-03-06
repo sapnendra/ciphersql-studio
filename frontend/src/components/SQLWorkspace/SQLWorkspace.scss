@@ -1,0 +1,30 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.sql-workspace {
+  &__actions {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-3;
+    flex-wrap: wrap;
+  }
+
+  &__complete-btn {
+    @include m.flex(row, center, center);
+    gap: v.$space-2;
+    margin-left: auto;
+    border: 1px solid rgba(v.$color-success, 0.4);
+    color: v.$color-success;
+    background: rgba(v.$color-success, 0.06);
+    transition: all v.$transition-fast;
+
+    &:hover:not(:disabled) {
+      background: rgba(v.$color-success, 0.14);
+      border-color: v.$color-success;
+    }
+
+    &--done {
+      opacity: 0.6;
+      cursor: default;
+    }
+  }
+}

@@ -1,0 +1,117 @@
+@use '../styles/variables' as v;
+@use '../styles/mixins' as m;
+
+.home-page {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+
+  // ── Hero ──
+  &__hero {
+    @include m.flex(column, center, center);
+    flex: 1;
+    text-align: center;
+    padding: v.$space-16 v.$space-4;
+    gap: v.$space-6;
+
+    background: radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      rgba(v.$color-primary, 0.12) 0%,
+      transparent 70%
+    );
+  }
+
+  &__hero-badge {
+    display: inline-block;
+    background: rgba(v.$color-primary, 0.12);
+    color: v.$color-primary-light;
+    border: 1px solid rgba(v.$color-primary, 0.3);
+    border-radius: v.$radius-full;
+    padding: v.$space-2 v.$space-5;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    letter-spacing: 0.04em;
+  }
+
+  &__hero-title {
+    @include m.heading(v.$font-size-2xl);
+    max-width: 640px;
+    line-height: 1.15;
+
+    @include m.tablet {
+      font-size: v.$font-size-3xl;
+    }
+  }
+
+  &__hero-accent {
+    color: v.$color-primary;
+    background: linear-gradient(135deg, v.$color-primary, v.$color-primary-light);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__hero-subtitle {
+    max-width: 520px;
+    color: v.$color-muted;
+    font-size: v.$font-size-md;
+    line-height: 1.7;
+  }
+
+  &__hero-actions {
+    @include m.flex(column, center, center);
+    gap: v.$space-3;
+    width: 100%;
+
+    @include m.tablet {
+      @include m.flex(row, center, center);
+    }
+  }
+
+  // ── Features ──
+  &__features {
+    padding: v.$space-12 v.$space-4 v.$space-16;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: v.$space-4;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+
+    @include m.tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include m.laptop {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__feature-card {
+    @include m.card;
+    text-align: center;
+    transition: border-color v.$transition-base, transform v.$transition-base;
+
+    &:hover {
+      border-color: v.$color-primary;
+      transform: translateY(-2px);
+    }
+  }
+
+  &__feature-icon {
+    display: block;
+    font-size: v.$font-size-2xl;
+    margin-bottom: v.$space-3;
+  }
+
+  &__feature-title {
+    @include m.heading(v.$font-size-base);
+    margin-bottom: v.$space-2;
+  }
+
+  &__feature-desc {
+    font-size: v.$font-size-sm;
+    color: v.$color-muted;
+    line-height: 1.6;
+  }
+}

@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+venv/
+env/
+*.egg-info/
+__pycache__/
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Build and Distribution
+build/
+dist/
+*.o
+*.a
+*.so
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/

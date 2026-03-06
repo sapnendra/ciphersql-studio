@@ -1,0 +1,141 @@
+@use 'variables' as v;
+
+// ─── Breakpoint Mixins ────────────────────────────────────────
+@mixin tablet {
+  @media (min-width: #{v.$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{v.$bp-laptop}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{v.$bp-desktop}) {
+    @content;
+  }
+}
+
+// ─── Flex Helpers ────────────────────────────────────────────
+@mixin flex($direction: row, $justify: flex-start, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// ─── Typography Mixins ───────────────────────────────────────
+@mixin heading($size: v.$font-size-xl, $weight: v.$font-weight-bold) {
+  font-family: v.$font-heading;
+  font-size: $size;
+  font-weight: $weight;
+  color: v.$color-heading;
+  line-height: 1.25;
+}
+
+@mixin body-text($size: v.$font-size-base) {
+  font-family: v.$font-body;
+  font-size: $size;
+  color: v.$color-body;
+  line-height: 1.6;
+}
+
+// ─── Card Mixin ───────────────────────────────────────────────
+@mixin card($bg: v.$color-card) {
+  background: $bg;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  padding: v.$space-6;
+}
+
+// ─── Button Base ─────────────────────────────────────────────
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2;
+  border: none;
+  border-radius: v.$radius-md;
+  cursor: pointer;
+  font-family: v.$font-body;
+  font-weight: v.$font-weight-semibold;
+  font-size: v.$font-size-sm;
+  padding: v.$space-3 v.$space-5;
+  transition: all v.$transition-base;
+  text-decoration: none;
+  white-space: nowrap;
+  min-height: 44px; // Touch-friendly
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Difficulty Badge ─────────────────────────────────────────
+@mixin difficulty-badge($color) {
+  background: rgba($color, 0.15);
+  color: $color;
+  border: 1px solid rgba($color, 0.3);
+  border-radius: v.$radius-full;
+  padding: v.$space-1 v.$space-3;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// ─── Scrollbar ───────────────────────────────────────────────
+@mixin custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: v.$color-border v.$color-surface;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: v.$color-surface;
+    border-radius: v.$radius-full;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: v.$color-border;
+    border-radius: v.$radius-full;
+
+    &:hover {
+      background: v.$color-muted;
+    }
+  }
+}
+
+// ─── Focus Ring ──────────────────────────────────────────────
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid v.$color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// ─── Truncate Text ───────────────────────────────────────────
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

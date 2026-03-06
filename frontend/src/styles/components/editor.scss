@@ -1,0 +1,67 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+// ─── SQL Editor Wrapper ──────────────────────────────────────
+.sql-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 280px;
+
+  &__toolbar {
+    @include m.flex-between;
+    padding: v.$space-3 v.$space-4;
+    background: v.$color-card;
+    border: 1px solid v.$color-border;
+    border-bottom: none;
+    border-radius: v.$radius-lg v.$radius-lg 0 0;
+    flex-wrap: wrap;
+    gap: v.$space-2;
+  }
+
+  &__title {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-2;
+    font-family: v.$font-body;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-medium;
+    color: v.$color-muted;
+
+    &-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: v.$radius-full;
+      background: v.$color-primary;
+    }
+  }
+
+  &__shortcut {
+    font-size: v.$font-size-xs;
+    color: v.$color-muted;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+    padding: 2px v.$space-2;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  &__monaco {
+    flex: 1;
+    border: 1px solid v.$color-border;
+    border-top: none;
+    border-radius: 0 0 v.$radius-lg v.$radius-lg;
+    overflow: hidden;
+    min-height: 200px;
+
+    .monaco-editor {
+      border-radius: 0 0 v.$radius-lg v.$radius-lg;
+    }
+  }
+
+  &__actions {
+    @include m.flex(row, flex-end, center);
+    gap: v.$space-3;
+    padding: v.$space-3 0;
+    flex-wrap: wrap;
+  }
+}

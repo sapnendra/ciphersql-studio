@@ -1,0 +1,97 @@
+.sample-data-viewer {
+  background: #1E293B;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #374151 #1E293B;
+}
+.sample-data-viewer::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.sample-data-viewer::-webkit-scrollbar-track {
+  background: #1E293B;
+  border-radius: 9999px;
+}
+.sample-data-viewer::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 9999px;
+}
+.sample-data-viewer::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+.sample-data-viewer__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #374151;
+}
+.sample-data-viewer__icon {
+  font-size: 1.125rem;
+  color: #6366F1;
+}
+.sample-data-viewer__title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #F9FAFB;
+  line-height: 1.25;
+  color: #9CA3AF;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.sample-data-viewer__col-type {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 10px;
+  color: #9CA3AF;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+.sample-data-viewer__empty {
+  text-align: center;
+  color: #9CA3AF;
+  font-style: italic;
+  padding: 1rem;
+}
+.sample-data-viewer .sample-table__name-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #A5B4FC;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.sample-data-viewer .results-table {
+  overflow-x: auto;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #374151 #1E293B;
+}
+.sample-data-viewer .results-table::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.sample-data-viewer .results-table::-webkit-scrollbar-track {
+  background: #1E293B;
+  border-radius: 9999px;
+}
+.sample-data-viewer .results-table::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 9999px;
+}
+.sample-data-viewer .results-table::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+.sample-data-viewer .results-table {
+  border-radius: 8px;
+  border: 1px solid #374151;
+}/*# sourceMappingURL=SampleDataViewer.css.map */

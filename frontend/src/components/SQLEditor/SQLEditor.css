@@ -1,0 +1,10 @@
+.sql-editor__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 240px;
+  color: #9CA3AF;
+  font-size: 0.875rem;
+  background: #111827;
+  font-family: "JetBrains Mono", monospace;
+}/*# sourceMappingURL=SQLEditor.css.map */

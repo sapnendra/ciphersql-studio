@@ -1,0 +1,71 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Navbar from './components/Navbar/Navbar';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import AssignmentsPage from './pages/AssignmentsPage';
+import WorkspacePage from './pages/WorkspacePage';
+
+// Protected route wrapper
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+  if (loading) return <div className="workspace-loading"><div className="workspace-loading__spinner" /></div>;
+  return user ? children : <Navigate to="/login" replace />;
+};
+
+// Public-only route: redirect logged-in users
+const PublicRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  return !user ? children : <Navigate to="/assignments" replace />;
+};
+
+const AppRoutes = () => (
+  <BrowserRouter>
+    <Navbar />
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route
+        path="/login"
+        element={<PublicRoute><LoginPage /></PublicRoute>}
+      />
+      <Route
+        path="/signup"
+        element={<PublicRoute><SignupPage /></PublicRoute>}
+      />
+      <Route
+        path="/assignments"
+        element={<ProtectedRoute><AssignmentsPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/assignments/:id"
+        element={<ProtectedRoute><WorkspacePage /></ProtectedRoute>}
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  </BrowserRouter>
+);
+
+const App = () => (
+  <AuthProvider>
+    <AppRoutes />
+    <Toaster
+      position="bottom-right"
+      toastOptions={{
+        style: {
+          background: '#1E293B',
+          color: '#F9FAFB',
+          border: '1px solid #374151',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '14px',
+        },
+        success: { iconTheme: { primary: '#22C55E', secondary: '#0F172A' } },
+        error: { iconTheme: { primary: '#EF4444', secondary: '#0F172A' } },
+      }}
+    />
+  </AuthProvider>
+);
+
+export default App;
