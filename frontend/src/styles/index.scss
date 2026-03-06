@@ -2,10 +2,19 @@
 @use 'variables';
 @use 'mixins';
 @use 'base';
-@use 'layout';
-
+@use 'layout';@use 'animations';
 // ─── Component Partials ───────────────────────────────────────
 @use 'components/buttons';
 @use 'components/cards';
 @use 'components/editor';
 @use 'components/tables';
+
+
+::selection {
+  background: #c823ff52;
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}

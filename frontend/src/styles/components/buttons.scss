@@ -6,20 +6,28 @@
   @include m.btn-base;
   @include m.focus-ring;
 
-  // ── Variants ──
   &--primary {
-    background: v.$color-primary;
+    background: v.$gradient-primary;
     color: #fff;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity v.$transition-fast;
+    }
 
     &:hover:not(:disabled) {
-      background: v.$color-primary-dark;
+      transform: translateY(-2px) scale(1.02);
       box-shadow: v.$shadow-glow;
-      transform: translateY(-1px);
+      &::before { opacity: 1; }
     }
 
-    &:active:not(:disabled) {
-      transform: translateY(0);
-    }
+    &:active:not(:disabled) { transform: translateY(0) scale(1); }
   }
 
   &--secondary {
@@ -28,18 +36,20 @@
     border: 1px solid v.$color-border;
 
     &:hover:not(:disabled) {
-      border-color: v.$color-primary;
+      border-color: rgba(v.$color-primary, 0.5);
       color: v.$color-primary-light;
       background: rgba(v.$color-primary, 0.08);
+      box-shadow: 0 0 12px rgba(v.$color-primary, 0.15);
     }
   }
 
   &--success {
-    background: v.$color-success;
+    background: v.$gradient-green;
     color: #fff;
 
     &:hover:not(:disabled) {
-      background: #16a34a;
+      transform: translateY(-1px);
+      box-shadow: v.$shadow-glow-green;
     }
   }
 
@@ -47,9 +57,7 @@
     background: v.$color-error;
     color: #fff;
 
-    &:hover:not(:disabled) {
-      background: #dc2626;
-    }
+    &:hover:not(:disabled) { background: #dc2626; }
   }
 
   &--ghost {
@@ -62,7 +70,6 @@
     }
   }
 
-  // ── Sizes ──
   &--sm {
     padding: v.$space-2 v.$space-3;
     font-size: v.$font-size-xs;
@@ -73,16 +80,15 @@
     padding: v.$space-4 v.$space-8;
     font-size: v.$font-size-md;
     min-height: 52px;
+    border-radius: v.$radius-lg;
   }
 
-  &--full {
-    width: 100%;
-  }
+  &--full { width: 100%; }
 
-  // ── Loading ──
   &--loading {
     position: relative;
     color: transparent;
+    pointer-events: none;
 
     &::after {
       content: '';
@@ -100,3 +106,5 @@
 @keyframes btn-spin {
   to { transform: rotate(360deg); }
 }
+
+

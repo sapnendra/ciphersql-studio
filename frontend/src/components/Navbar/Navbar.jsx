@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Hexagon, LogOut, LogIn, UserPlus, Menu, X } from 'lucide-react';
+import { Hexagon, LogOut, LogIn, UserPlus, Menu, X, Search, BookOpen, Zap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './Navbar.scss';
 
@@ -8,6 +8,13 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -16,17 +23,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="navbar__container">
         {/* Logo */}
-        <Link to="/" className="navbar__logo">
-          <Hexagon className="navbar__logo-icon" size={22} strokeWidth={1.5} />
+        <Link to="/" className="navbar__logo" onClick={() => setMenuOpen(false)}>
+          <span className="navbar__logo-hex">
+            <Hexagon size={22} strokeWidth={1.5} />
+          </span>
           <span className="navbar__logo-text">
             Cipher<span className="navbar__logo-accent">SQL</span>Studio
           </span>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Center Nav Links */}
         <div className="navbar__links">
           {user && (
             <NavLink
@@ -35,35 +44,52 @@ const Navbar = () => {
                 `navbar__link${isActive ? ' navbar__link--active' : ''}`
               }
             >
+              <BookOpen size={14} />
               Assignments
             </NavLink>
           )}
+          {!user && (
+            <>
+              <span className="navbar__link navbar__link--ghost">
+                <BookOpen size={14} />
+                Docs
+              </span>
+              <span className="navbar__link navbar__link--ghost">
+                <Zap size={14} />
+                Resources
+              </span>
+            </>
+          )}
         </div>
 
-        {/* User Section */}
-        <div className="navbar__user">
+        {/* Right Section */}
+        <div className="navbar__actions">
+          <button className="navbar__icon-btn" aria-label="Search">
+            <Search size={16} />
+          </button>
+
           {user ? (
-            <>
+            <div className="navbar__user">
+              <div className="navbar__user-avatar">
+                {user.name?.charAt(0).toUpperCase()}
+              </div>
               <span className="navbar__user-name">{user.name}</span>
-              <button
-                className="btn btn--secondary btn--sm"
-                onClick={handleLogout}
-              >
+              <button className="btn btn--ghost btn--sm" onClick={handleLogout}>
                 <LogOut size={14} />
                 Logout
               </button>
-            </>
+            </div>
           ) : (
-            <>
+            <div className="navbar__auth">
               <Link to="/login" className="btn btn--ghost btn--sm">
                 <LogIn size={14} />
                 Login
               </Link>
-              <Link to="/signup" className="btn btn--primary btn--sm">
+              <Link to="/signup" className="btn btn--primary btn--sm navbar__cta">
                 <UserPlus size={14} />
-                Sign Up
+                Get Started
               </Link>
-            </>
+            </div>
           )}
         </div>
 
@@ -77,40 +103,31 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown */}
       {menuOpen && (
-        <div className="navbar__mobile-menu">
-          {user && (
-            <NavLink
-              to="/assignments"
-              className="navbar__mobile-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Assignments
-            </NavLink>
-          )}
+        <div className="navbar__mobile">
           {user ? (
             <>
-              <span className="navbar__mobile-user">{user.name}</span>
+              <div className="navbar__mobile-user">
+                <div className="navbar__user-avatar">{user.name?.charAt(0).toUpperCase()}</div>
+                <span>{user.name}</span>
+              </div>
+              <NavLink to="/assignments" className="navbar__mobile-link" onClick={() => setMenuOpen(false)}>
+                <BookOpen size={15} /> Assignments
+              </NavLink>
               <button className="btn btn--secondary btn--full" onClick={handleLogout}>
-                Logout
+                <LogOut size={14} /> Logout
               </button>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="btn btn--ghost btn--full"
-                onClick={() => setMenuOpen(false)}
-              >
-                Login
+              <span className="navbar__mobile-link navbar__mobile-link--ghost"><BookOpen size={15} /> Docs</span>
+              <span className="navbar__mobile-link navbar__mobile-link--ghost"><Zap size={15} /> Resources</span>
+              <Link to="/login" className="btn btn--ghost btn--full" onClick={() => setMenuOpen(false)}>
+                <LogIn size={14} /> Login
               </Link>
-              <Link
-                to="/signup"
-                className="btn btn--primary btn--full"
-                onClick={() => setMenuOpen(false)}
-              >
-                Sign Up
+              <Link to="/signup" className="btn btn--primary btn--full" onClick={() => setMenuOpen(false)}>
+                <UserPlus size={14} /> Get Started
               </Link>
             </>
           )}

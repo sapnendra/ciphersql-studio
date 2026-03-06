@@ -1,8 +1,7 @@
 @use 'variables' as v;
 
 // ─── Breakpoint Mixins ────────────────────────────────────────
-@mixin tablet {
-  @media (min-width: #{v.$bp-tablet}) {
+@mixin tablet {  @media (min-width: #{v.$bp-tablet}) {
     @content;
   }
 }
@@ -39,13 +38,13 @@
   align-items: center;
 }
 
-// ─── Typography Mixins ───────────────────────────────────────
+// ─── Typography Mixins ─────────────────────────────────────────
 @mixin heading($size: v.$font-size-xl, $weight: v.$font-weight-bold) {
   font-family: v.$font-heading;
   font-size: $size;
   font-weight: $weight;
   color: v.$color-heading;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 @mixin body-text($size: v.$font-size-base) {
@@ -55,7 +54,35 @@
   line-height: 1.6;
 }
 
-// ─── Card Mixin ───────────────────────────────────────────────
+// ─── Gradient Text ─────────────────────────────────────────────
+@mixin gradient-text($gradient: v.$gradient-text) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ─── Glow Effect ───────────────────────────────────────────────
+@mixin glow($color: v.$color-primary-glow, $blur: 20px) {
+  box-shadow: 0 0 #{$blur} $color, 0 0 calc(#{$blur} * 2) rgba(124, 58, 237, 0.1);
+}
+
+@mixin glow-border($color: v.$color-primary) {
+  border-color: rgba($color, 0.5);
+  box-shadow: 0 0 0 1px rgba($color, 0.15), 0 0 20px rgba($color, 0.15);
+}
+
+// ─── Glass Card ────────────────────────────────────────────────
+@mixin glass-card {
+  background: rgba(v.$color-card, 0.8);
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-xl;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: v.$shadow-card;
+}
+
+// ─── Card Mixin ────────────────────────────────────────────────
 @mixin card($bg: v.$color-card) {
   background: $bg;
   border: 1px solid v.$color-border;
@@ -63,7 +90,7 @@
   padding: v.$space-6;
 }
 
-// ─── Button Base ─────────────────────────────────────────────
+// ─── Button Base ───────────────────────────────────────────────
 @mixin btn-base {
   display: inline-flex;
   align-items: center;
@@ -79,7 +106,7 @@
   transition: all v.$transition-base;
   text-decoration: none;
   white-space: nowrap;
-  min-height: 44px; // Touch-friendly
+  min-height: 44px;
 
   &:disabled {
     opacity: 0.5;
@@ -87,7 +114,7 @@
   }
 }
 
-// ─── Difficulty Badge ─────────────────────────────────────────
+// ─── Difficulty Badge ───────────────────────────────────────────
 @mixin difficulty-badge($color) {
   background: rgba($color, 0.15);
   color: $color;
@@ -103,24 +130,23 @@
 // ─── Scrollbar ───────────────────────────────────────────────
 @mixin custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: v.$color-border v.$color-surface;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
 
   &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
 
   &::-webkit-scrollbar-track {
-    background: v.$color-surface;
-    border-radius: v.$radius-full;
+    background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: v.$color-border;
+    background: rgba(255,255,255,0.1);
     border-radius: v.$radius-full;
 
     &:hover {
-      background: v.$color-muted;
+      background: rgba(255,255,255,0.2);
     }
   }
 }

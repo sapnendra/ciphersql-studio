@@ -1,117 +1,635 @@
 @use '../styles/variables' as v;
 @use '../styles/mixins' as m;
 
-.home-page {
-  min-height: calc(100vh - 64px);
-  display: flex;
-  flex-direction: column;
+// ───────────────────────────────────────────────────
+//  SHARED UTILITIES
+// ───────────────────────────────────────────────────
+.hp {
+  min-height: 100vh;
 
-  // ── Hero ──
-  &__hero {
-    @include m.flex(column, center, center);
-    flex: 1;
-    text-align: center;
-    padding: v.$space-16 v.$space-4;
-    gap: v.$space-6;
-
-    background: radial-gradient(
-      ellipse 80% 50% at 50% 0%,
-      rgba(v.$color-primary, 0.12) 0%,
-      transparent 70%
-    );
+  // Gradient text utility
+  &__gradient-text {
+    @include m.gradient-text(v.$gradient-text);
   }
 
-  &__hero-badge {
-    display: inline-block;
-    background: rgba(v.$color-primary, 0.12);
+  // Badge pill
+  &__badge {
+    @include m.flex(row, flex-start, center);
+    display: inline-flex;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.12);
+    border: 1px solid rgba(124, 58, 237, 0.3);
     color: v.$color-primary-light;
-    border: 1px solid rgba(v.$color-primary, 0.3);
-    border-radius: v.$radius-full;
-    padding: v.$space-2 v.$space-5;
-    font-size: v.$font-size-sm;
+    font-size: 12px;
     font-weight: v.$font-weight-medium;
-    letter-spacing: 0.04em;
-  }
+    letter-spacing: 0.02em;
+    margin-bottom: v.$space-5;
 
-  &__hero-title {
-    @include m.heading(v.$font-size-2xl);
-    max-width: 640px;
-    line-height: 1.15;
-
-    @include m.tablet {
-      font-size: v.$font-size-3xl;
+    &--green {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: #86EFAC;
     }
   }
 
-  &__hero-accent {
-    color: v.$color-primary;
-    background: linear-gradient(135deg, v.$color-primary, v.$color-primary-light);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  // Section wrapper
+  &__section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 v.$space-5;
+
+    @include m.tablet {
+      padding: 0 v.$space-8;
+    }
   }
 
-  &__hero-subtitle {
-    max-width: 520px;
+  &__section-header {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+
+  &__section-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: v.$color-heading;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: v.$space-3;
+  }
+
+  &__section-sub {
+    font-size: v.$font-size-base;
     color: v.$color-muted;
-    font-size: v.$font-size-md;
+    max-width: 520px;
+    margin: 0 auto;
     line-height: 1.7;
   }
 
-  &__hero-actions {
-    @include m.flex(column, center, center);
-    gap: v.$space-3;
-    width: 100%;
-
-    @include m.tablet {
-      @include m.flex(row, center, center);
+  // CTA glow modifier
+  &__cta-glow {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.45), 0 4px 16px rgba(0,0,0,0.3) !important;
+    &:hover {
+      box-shadow: 0 0 32px rgba(124, 58, 237, 0.6), 0 8px 24px rgba(0,0,0,0.3) !important;
     }
   }
 
-  // ── Features ──
+  // ─────────────────────────────────────────────────
+  //  HERO
+  // ─────────────────────────────────────────────────
+  &__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0 80px;
+
+    // Subtle grid overlay
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+  }
+
+  &__hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  &__hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+
+    &--purple {
+      width: 600px; height: 600px;
+      top: -150px; left: -100px;
+      background: radial-gradient(circle, rgba(124,58,237,0.2), transparent 70%);
+    }
+
+    &--green {
+      width: 400px; height: 400px;
+      bottom: -100px; right: -50px;
+      background: radial-gradient(circle, rgba(34,197,94,0.12), transparent 70%);
+    }
+  }
+
+  &__hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 v.$space-5;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    align-items: center;
+
+    @include m.tablet {
+      padding: 0 v.$space-8;
+    }
+
+    @media (min-width: 900px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+  }
+
+  // Hero Left
+  &__hero-title {
+    font-size: clamp(2.5rem, 5vw, v.$font-size-hero);
+    font-weight: 800;
+    color: v.$color-heading;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: v.$space-5;
+  }
+
+  &__hero-desc {
+    font-size: 1.0625rem;
+    color: v.$color-body;
+    line-height: 1.75;
+    max-width: 480px;
+    margin-bottom: 1.75rem;
+  }
+
+  &__hero-actions {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-3;
+    flex-wrap: wrap;
+    margin-bottom: v.$space-8;
+  }
+
+  &__hero-stats {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-5;
+    flex-wrap: wrap;
+  }
+
+  &__stat {
+    @include m.flex(column, flex-start, flex-start);
+    gap: 2px;
+  }
+
+  &__stat-num {
+    font-size: 1.375rem;
+    font-weight: 700;
+    @include m.gradient-text(v.$gradient-text);
+  }
+
+  &__stat-label {
+    font-size: 12px;
+    color: v.$color-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__stat-divider {
+    width: 1px;
+    height: 32px;
+    background: v.$color-border;
+  }
+
+  // Hero Right — SQL card
+  &__hero-right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__sql-card {
+    width: 100%;
+    max-width: 520px;
+    background: v.$color-card;
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    border-radius: v.$radius-xl;
+    overflow: hidden;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+    animation: floatY 6s ease-in-out infinite;
+  }
+
+  // Window chrome
+  &__sql-chrome {
+    @include m.flex(row, flex-start, center);
+    gap: 6px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid v.$color-border;
+
+    &--sm { padding: 10px 14px; }
+  }
+
+  &__sql-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    &--red    { background: #FF5F57; }
+    &--yellow { background: #FFBD2E; }
+    &--green  { background: #28CA41; }
+  }
+
+  &__sql-chrome-title {
+    margin-left: 8px;
+    font-family: v.$font-mono;
+    font-size: 12px;
+    color: v.$color-muted;
+  }
+
+  // Code block
+  &__sql-code {
+    margin: 0;
+    padding: 16px 20px;
+    font-family: v.$font-mono;
+    font-size: 13px;
+    line-height: 1.7;
+    color: v.$color-body;
+    white-space: pre;
+    overflow-x: auto;
+    background: transparent;
+
+    // Syntax colours
+    .sq-kw  { color: #C084FC; font-weight: 600; }
+    .sq-str { color: #86EFAC; }
+    .sq-num { color: #FCA5A5; }
+
+    &--demo { font-size: 12.5px; }
+  }
+
+  // Run bar
+  &__sql-run {
+    @include m.flex(row, flex-start, center);
+    gap: v.$space-3;
+    padding: 10px 16px;
+    border-top: 1px solid v.$color-border;
+    background: rgba(255,255,255,0.02);
+  }
+
+  &__sql-run-btn {
+    @include m.flex(row, flex-start, center);
+    gap: 4px;
+    padding: 5px 12px;
+    background: v.$gradient-primary;
+    border: none;
+    border-radius: v.$radius-sm;
+    color: #fff;
+    font-size: 12px;
+    font-weight: v.$font-weight-medium;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    &:hover { opacity: 0.85; }
+  }
+
+  &__sql-run-status {
+    font-size: 11px;
+    color: #22C55E;
+    font-family: v.$font-mono;
+  }
+
+  // Results table inside the hero card
+  &__sql-results {
+    border-top: 1px solid v.$color-border;
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: v.$font-mono;
+      font-size: 12px;
+    }
+
+    th {
+      padding: 8px 14px;
+      text-align: left;
+      color: v.$color-muted;
+      border-bottom: 1px solid v.$color-border;
+      font-weight: v.$font-weight-medium;
+      background: rgba(255,255,255,0.015);
+    }
+
+    td {
+      padding: 7px 14px;
+      color: v.$color-body;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    tr:last-child td { border-bottom: none; }
+  }
+
+  &__num { color: #FCA5A5 !important; }
+
+  // Floating badges
+  &__float {
+    position: absolute;
+    @include m.flex-center;
+    width: 44px; height: 44px;
+    border-radius: v.$radius-lg;
+    border: 1px solid v.$color-border;
+    background: v.$color-surface;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    color: v.$color-primary-light;
+
+    &--db   { top: -16px;  right: 60px;  animation: floatY     5s ease-in-out infinite; }
+    &--term { bottom: 24px; right: -16px; animation: floatYSlow 7s ease-in-out infinite 0.5s; }
+    &--code { top: 40%;   left: -16px;  animation: floatY     6s ease-in-out infinite 1s; }
+  }
+
+  // ─────────────────────────────────────────────────
+  //  FEATURES
+  // ─────────────────────────────────────────────────
   &__features {
-    padding: v.$space-12 v.$space-4 v.$space-16;
+    padding: 96px 0;
+    border-top: 1px solid v.$color-border;
+  }
+
+  &__feature-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: v.$space-4;
-    max-width: 1000px;
-    margin: 0 auto;
-    width: 100%;
 
     @include m.tablet {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @include m.laptop {
+    @media (min-width: 1024px) {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 
   &__feature-card {
-    @include m.card;
-    text-align: center;
-    transition: border-color v.$transition-base, transform v.$transition-base;
+    padding: 28px 24px;
+    background: v.$color-card;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-xl;
+    transition: all 0.3s ease;
+    cursor: default;
 
     &:hover {
-      border-color: v.$color-primary;
-      transform: translateY(-2px);
+      transform: translateY(-4px);
+    }
+
+    &--purple:hover {
+      border-color: rgba(124, 58, 237, 0.4);
+      box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+    }
+
+    &--green:hover {
+      border-color: rgba(34, 197, 94, 0.4);
+      box-shadow: 0 8px 32px rgba(34, 197, 94, 0.12);
     }
   }
 
   &__feature-icon {
-    display: block;
-    font-size: v.$font-size-2xl;
-    margin-bottom: v.$space-3;
+    @include m.flex-center;
+    width: 44px; height: 44px;
+    border-radius: v.$radius-md;
+    margin-bottom: 18px;
+
+    .hp__feature-card--purple & {
+      background: rgba(124, 58, 237, 0.15);
+      color: v.$color-primary-light;
+    }
+    .hp__feature-card--green & {
+      background: rgba(34, 197, 94, 0.12);
+      color: #86EFAC;
+    }
   }
 
   &__feature-title {
-    @include m.heading(v.$font-size-base);
+    font-size: v.$font-size-base;
+    font-weight: v.$font-weight-semibold;
+    color: v.$color-heading;
     margin-bottom: v.$space-2;
   }
 
   &__feature-desc {
-    font-size: v.$font-size-sm;
+    font-size: 14px;
     color: v.$color-muted;
-    line-height: 1.6;
+    line-height: 1.65;
+  }
+
+  // ─────────────────────────────────────────────────
+  //  DEMO
+  // ─────────────────────────────────────────────────
+  &__demo {
+    padding: 96px 0;
+    background: linear-gradient(to bottom, transparent, rgba(15,23,42,0.5), transparent);
+  }
+
+  &__demo-panel {
+    background: v.$color-card;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-xl;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+
+  &__demo-tabs {
+    @include m.flex(row, flex-start, center);
+    gap: 4px;
+    padding: 12px 16px;
+    border-bottom: 1px solid v.$color-border;
+    background: rgba(255,255,255,0.02);
+    overflow-x: auto;
+  }
+
+  &__demo-tab {
+    padding: 6px 16px;
+    border: 1px solid transparent;
+    border-radius: v.$radius-md;
+    background: transparent;
+    color: v.$color-muted;
+    font-size: 13px;
+    font-weight: v.$font-weight-medium;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-family: v.$font-mono;
+
+    &:hover { color: v.$color-body; background: rgba(255,255,255,0.04); }
+
+    &--active {
+      color: v.$color-primary-light;
+      background: rgba(124, 58, 237, 0.12);
+      border-color: rgba(124, 58, 237, 0.3);
+    }
+  }
+
+  &__demo-body {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__demo-editor {
+    border-right: 1px solid v.$color-border;
+  }
+
+  &__demo-results {
+    padding: 0;
+    overflow-x: auto;
+  }
+
+  &__results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: v.$font-mono;
+    font-size: 13px;
+
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      color: v.$color-muted;
+      border-bottom: 1px solid v.$color-border;
+      font-weight: v.$font-weight-medium;
+      background: rgba(255,255,255,0.015);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 11px 16px;
+      color: v.$color-body;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+  }
+
+  // ─────────────────────────────────────────────────
+  //  ASSIGNMENTS PREVIEW
+  // ─────────────────────────────────────────────────
+  &__assignments {
+    padding: 96px 0;
+    border-top: 1px solid v.$color-border;
+  }
+
+  &__assignment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: v.$space-3;
+
+    @include m.tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__assignment-card {
+    padding: 20px 22px;
+    background: v.$color-card;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-lg;
+    transition: all 0.25s ease;
+    cursor: default;
+
+    &:hover {
+      border-color: rgba(124, 58, 237, 0.3);
+      background: rgba(124, 58, 237, 0.04);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__assignment-top {
+    @include m.flex-between;
+    margin-bottom: v.$space-3;
+  }
+
+  &__assignment-tag {
+    font-family: v.$font-mono;
+    font-size: 11px;
+    color: v.$color-primary-light;
+    background: rgba(124, 58, 237, 0.12);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  &__assignment-diff {
+    font-size: 11px;
+    font-weight: v.$font-weight-medium;
+    padding: 3px 8px;
+    border-radius: 4px;
+
+    &--beginner     { color: #86EFAC; background: rgba(34, 197, 94, 0.1); }
+    &--intermediate { color: #FDE68A; background: rgba(245, 158, 11, 0.1); }
+    &--advanced     { color: #FCA5A5; background: rgba(239, 68, 68, 0.1); }
+  }
+
+  &__assignment-title {
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-semibold;
+    color: v.$color-heading;
+    margin-bottom: v.$space-3;
+    line-height: 1.4;
+  }
+
+  &__assignment-arrow {
+    color: v.$color-muted;
+    transition: transform 0.2s, color 0.2s;
+
+    .hp__assignment-card:hover & {
+      color: v.$color-primary-light;
+      transform: translateX(4px);
+    }
+  }
+
+  &__assignments-cta {
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  // ─────────────────────────────────────────────────
+  //  FOOTER CTA
+  // ─────────────────────────────────────────────────
+  &__footer-cta {
+    position: relative;
+    padding: 120px 0;
+    overflow: hidden;
+    border-top: 1px solid v.$color-border;
+    text-align: center;
+
+    &-glow {
+      position: absolute;
+      width: 800px; height: 400px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse, rgba(124,58,237,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    &-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    &-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: v.$color-heading;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+      margin-bottom: v.$space-4;
+    }
+
+    &-sub {
+      font-size: v.$font-size-base;
+      color: v.$color-muted;
+      margin-bottom: v.$space-8;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }

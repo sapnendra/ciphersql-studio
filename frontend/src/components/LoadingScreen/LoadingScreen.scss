@@ -1,0 +1,172 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: v.$z-loading;
+  background: v.$color-bg;
+  @include m.flex-center;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+
+  &--fadeout {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  // ── Grid ──
+  &__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  // ── Glows ──
+  &__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: glowPulse 3s ease-in-out infinite;
+
+    &--purple {
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(124,58,237,0.5), transparent 70%);
+      top: -60px;
+      left: 50%;
+      transform: translateX(-60%);
+    }
+
+    &--green {
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(34,197,94,0.3), transparent 70%);
+      bottom: 60px;
+      right: 10%;
+      animation-delay: 1.5s;
+    }
+  }
+
+  // ── Content ──
+  &__content {
+    position: relative;
+    z-index: 1;
+    @include m.flex(column, center, center);
+    gap: v.$space-5;
+    text-align: center;
+  }
+
+  &__logo {
+    @include m.flex(column, center, center);
+    gap: v.$space-3;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  &__hex {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    animation: spinSlow 8s linear infinite;
+
+    &-poly {
+      filter: drop-shadow(0 0 12px rgba(124,58,237,0.6));
+    }
+  }
+
+  &__cursor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: v.$font-mono;
+    font-size: v.$font-size-lg;
+    font-weight: v.$font-weight-bold;
+    color: v.$color-primary-light;
+    animation: cursorBlink 1s step-end infinite;
+  }
+
+  &__wordmark {
+    font-family: v.$font-heading;
+    font-size: v.$font-size-xl;
+    font-weight: v.$font-weight-bold;
+    color: v.$color-heading;
+    line-height: 1;
+
+    span {
+      background: v.$gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  // ── Message ──
+  &__message {
+    font-family: v.$font-mono;
+    font-size: v.$font-size-sm;
+    color: v.$color-muted;
+    min-height: 20px;
+    animation: pulse 0.4s ease;
+    letter-spacing: 0.02em;
+  }
+
+  // ── Progress Bar ──
+  &__bar-track {
+    width: 280px;
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    border-radius: v.$radius-full;
+    overflow: hidden;
+  }
+
+  &__bar-fill {
+    height: 100%;
+    background: v.$gradient-primary;
+    border-radius: v.$radius-full;
+    transition: width 80ms linear;
+    box-shadow: 0 0 8px rgba(124,58,237,0.6);
+  }
+
+  &__pct {
+    font-family: v.$font-mono;
+    font-size: v.$font-size-xs;
+    color: v.$color-muted;
+    letter-spacing: 0.05em;
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.6; }
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeinUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes pulse {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
