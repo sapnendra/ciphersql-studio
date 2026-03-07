@@ -9,8 +9,32 @@ import { queryAPI, progressAPI } from '../../services/api';
 import toast from 'react-hot-toast';
 import './SQLWorkspace.scss';
 
+// ── Client-side query validator (mirrors backend sqlValidator.js) ──
+const FORBIDDEN = [
+  'DROP','ALTER','DELETE','TRUNCATE','CREATE','INSERT',
+  'UPDATE','GRANT','REVOKE','EXECUTE','EXEC','CALL','MERGE',
+];
+const validateQueryClient = (sql) => {
+  if (!sql || !sql.trim()) return 'Please write a query first.';
+  if (sql.length > 8000) return 'Query is too long (max 8000 characters).';
+  // Null-byte / encoding tricks
+  if (sql.includes('\0')) return 'Query contains invalid characters.';
+  const upper = sql.trim().toUpperCase();
+  if (!upper.startsWith('SELECT') && !upper.startsWith('WITH'))
+    return 'Only SELECT queries are allowed.';
+  for (const kw of FORBIDDEN) {
+    if (new RegExp(`\\b${kw}\\b`, 'i').test(sql))
+      return `Forbidden keyword detected: ${kw}.`;
+  }
+  if (sql.includes('--') || sql.includes('/*'))
+    return 'SQL comments are not allowed.';
+  if (sql.split(';').filter((s) => s.trim()).length > 1)
+    return 'Only a single statement is allowed per execution.';
+  return null; // valid
+};
+
 const SQLWorkspace = ({ assignment }) => {
-  const [query, setQuery] = useState('SELECT * FROM users;');
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState(null);
   const [queryError, setQueryError] = useState(null);
   const [running, setRunning] = useState(false);
@@ -33,8 +57,9 @@ const SQLWorkspace = ({ assignment }) => {
   }, [assignment._id]);
 
   const handleExecute = useCallback(async () => {
-    if (!query.trim()) {
-      toast.error('Please write a query first.');
+    const clientError = validateQueryClient(query);
+    if (clientError) {
+      toast.error(clientError);
       return;
     }
 

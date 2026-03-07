@@ -2,8 +2,6 @@ import { useRef } from 'react';
 import Editor from '@monaco-editor/react';
 import './SQLEditor.scss';
 
-const DEFAULT_QUERY = 'SELECT * FROM users;';
-
 const MONACO_OPTIONS = {
   fontSize: 14,
   fontFamily: "'JetBrains Mono', 'Fira Code', 'Courier New', monospace",
@@ -70,7 +68,7 @@ const SQLEditor = ({ value, onChange, onExecute, disabled }) => {
           height="100%"
           language="sql"
           theme="vs-dark"
-          value={value || DEFAULT_QUERY}
+          value={value}
           onChange={onChange}
           onMount={handleMount}
           options={MONACO_OPTIONS}

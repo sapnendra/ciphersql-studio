@@ -1,6 +1,6 @@
 const pool = require('../db/postgres');
 const Assignment = require('../models/Assignment');
-const { validateQuery } = require('../utils/sqlValidator');
+const { validateQuery, sanitizeQuery } = require('../utils/sqlValidator');
 
 // @desc  Execute a SQL query in isolated schema
 // @route POST /api/query/execute
@@ -16,8 +16,9 @@ const executeQuery = async (req, res, next) => {
       });
     }
 
-    // Validate query safety
-    const validation = validateQuery(query);
+    // Sanitize then validate
+    const sanitized = sanitizeQuery(query);
+    const validation = validateQuery(sanitized);
     if (!validation.valid) {
       return res.status(400).json({
         success: false,
@@ -44,7 +45,7 @@ const executeQuery = async (req, res, next) => {
     // Set statement timeout (5 seconds)
     await client.query('SET statement_timeout = 5000;');
 
-    const result = await client.query(query);
+    const result = await client.query(sanitized);
 
     res.status(200).json({
       success: true,
