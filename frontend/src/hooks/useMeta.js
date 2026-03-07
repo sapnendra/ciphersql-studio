@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 const SITE_NAME = 'CipherSQL Studio';
 const BASE_DESC =
   'Master SQL by writing real queries. 30+ hands-on assignments backed by a live PostgreSQL sandbox. ' +
-  'Get AI hints, track progress, and build real database skills — no setup required.';
+  'Get AI hints, track progress, and build real database skills - no setup required.';
 
 /**
  * useMeta — updates document <title> and meta[name="description"] per page.
  *
  * @param {object} options
- * @param {string} [options.title]       Page-specific title. Appended as "title — CipherSQL Studio".
+ * @param {string} [options.title]       Page-specific title. Appended as "title - CipherSQL Studio".
  * @param {string} [options.description] Page-specific meta description.
  */
 const useMeta = ({ title, description } = {}) => {
@@ -17,7 +17,7 @@ const useMeta = ({ title, description } = {}) => {
     const prevTitle = document.title;
 
     // Set title
-    document.title = title ? `${title} — ${SITE_NAME}` : `${SITE_NAME} — Interactive SQL Learning Sandbox`;
+    document.title = title ? `${title} - ${SITE_NAME}` : `${SITE_NAME} - Interactive SQL Learning Sandbox`;
 
     // Set meta description
     let metaDesc = document.querySelector('meta[name="description"]');
@@ -30,7 +30,7 @@ const useMeta = ({ title, description } = {}) => {
     const ogTitle = document.querySelector('meta[property="og:title"]');
     const prevOgTitle = ogTitle ? ogTitle.getAttribute('content') : null;
     if (ogTitle) {
-      ogTitle.setAttribute('content', title ? `${title} — ${SITE_NAME}` : `${SITE_NAME} — Interactive SQL Learning Sandbox`);
+      ogTitle.setAttribute('content', title ? `${title} - ${SITE_NAME}` : `${SITE_NAME} - Interactive SQL Learning Sandbox`);
     }
 
     // Set OG description
