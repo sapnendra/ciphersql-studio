@@ -74,7 +74,7 @@ Provide a helpful hint:`;
       const fallbackHints = [
         'Consider what columns you need and what condition would filter the rows correctly. Study the sample data to understand the table structure.',
         'Think about which SQL clause helps you filter rows and which helps you select specific columns. Look at the sample data for clues.',
-        'Review the question carefully — what table do you need to query, and do you need all columns or just specific ones?',
+        'Review the question carefully - what table do you need to query, and do you need all columns or just specific ones?',
         'Consider using a WHERE clause to filter rows. Look at the data types in the sample table to choose the right comparison.',
       ];
       const hint = fallbackHints[Math.floor(Math.random() * fallbackHints.length)];
