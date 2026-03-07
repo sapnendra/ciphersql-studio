@@ -39,9 +39,6 @@ app.use(
   })
 );
 
-// Handle preflight for all routes
-app.options('*', cors());
-
 // ─── Rate Limiting ────────────────────────────────────────────
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

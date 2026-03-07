@@ -53,10 +53,12 @@ CipherSQL Studio provides a full developer-grade SQL practice environment: 30+ c
 
 | Layer | Technology |
 |-------|------------|
-| SQL Database | PostgreSQL 14+ - sandboxed per-assignment schemas |
+| SQL Database | [Neon](https://neon.tech) (serverless PostgreSQL) - sandboxed per-assignment schemas |
 | NoSQL Database | MongoDB Atlas - assignments, users, progress |
 | AI | OpenAI GPT-3.5 - contextual SQL learning hints |
 | Auth | JWT + bcrypt - stateless, scalable |
+| Backend Hosting | [Render](https://render.com) - Node.js web service |
+| Frontend Hosting | [Vercel](https://vercel.com) - static + SPA routing |
 
 ---
 
@@ -224,9 +226,9 @@ CipherSQLStudio/
 ### Prerequisites
 
 - Node.js 18+
-- PostgreSQL 14+
-- MongoDB Atlas account (or local MongoDB)
-- OpenAI API key (optional - hints fall back to a generic message)
+- [Neon](https://neon.tech) account (free tier is sufficient) — or any PostgreSQL 14+ host
+- MongoDB Atlas account (free M0 cluster)
+- OpenAI API key (optional — hints fall back to a generic message if absent)
 
 ---
 
@@ -247,30 +249,54 @@ cd ../frontend && npm install
 
 ### 2. Environment Variables
 
-**`backend/.env`**
+**`backend/.env`** (local development)
 ```env
 PORT=5000
 MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/ciphersqlstudio
-POSTGRES_URI=postgresql://user:password@localhost:5432/ciphersqlstudio
-JWT_SECRET=your_super_secret_jwt_key
+POSTGRES_URI=postgresql://<neon-user>:<neon-password>@<host>.neon.tech/neondb?sslmode=require&channel_binding=require
+JWT_SECRET=your_super_secret_jwt_key_min_32_chars
 OPENAI_API_KEY=sk-your-openai-api-key
 CORS_ORIGIN=http://localhost:5173
 NODE_ENV=development
 ```
 
-**`frontend/.env`**
+> **Neon connection string**: Go to your Neon project → Connection Details → select **Pooled connection** → copy the URI. The database name is `neondb` by default.
+
+**`backend/.env`** (production — set these as env vars on Render)
+```env
+PORT=10000
+MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/ciphersqlstudio
+POSTGRES_URI=postgresql://<neon-user>:<neon-password>@<host>.neon.tech/neondb?sslmode=require&channel_binding=require
+JWT_SECRET=your_super_secret_jwt_key_min_32_chars
+OPENAI_API_KEY=sk-your-openai-api-key
+CORS_ORIGIN=https://your-frontend-domain.com
+NODE_ENV=production
+```
+
+**`frontend/.env`** (local development)
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
+**`frontend/.env`** (production — set as env var on Vercel)
+```env
+VITE_API_URL=https://your-render-backend.onrender.com/api
+```
+
 ---
 
-### 3. Set up PostgreSQL
+### 3. Set up PostgreSQL (Neon)
+
+1. Create a free project on [neon.tech](https://neon.tech)
+2. From **Connection Details** copy the **pooled** connection string (database is `neondb`)
+3. Run the setup script against your Neon database:
 
 ```bash
-createdb ciphersqlstudio
-psql ciphersqlstudio < backend/src/db/setup.sql
+psql "postgresql://<user>:<password>@<host>.neon.tech/neondb?sslmode=require" \
+  < backend/src/db/setup.sql
 ```
+
+> For a **local** PostgreSQL alternative: `createdb mydb && psql mydb < backend/src/db/setup.sql`
 
 Creates and seeds 6 isolated schemas:
 
