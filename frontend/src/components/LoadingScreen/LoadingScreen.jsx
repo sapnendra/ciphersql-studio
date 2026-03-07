@@ -59,13 +59,13 @@ const LoadingScreen = ({ onDone }) => {
                 points="28,4 52,17 52,39 28,52 4,39 4,17"
                 stroke="url(#hexGrad)"
                 strokeWidth="1.5"
-                fill="rgba(124,58,237,0.08)"
+                fill="rgba(255,85,0,0.08)"
                 className="loading-screen__hex-poly"
               />
               <defs>
                 <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#7C3AED" />
-                  <stop offset="100%" stopColor="#A855F7" />
+                  <stop offset="0%" stopColor="#FF5500" />
+                  <stop offset="100%" stopColor="#FF8C00" />
                 </linearGradient>
               </defs>
             </svg>

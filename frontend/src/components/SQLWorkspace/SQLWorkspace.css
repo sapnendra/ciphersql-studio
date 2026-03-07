@@ -6,6 +6,30 @@
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+.sql-workspace__attempts {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  color: #EDD9C8;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  white-space: nowrap;
+  padding-right: 0.5rem;
+  border-right: 1px solid rgba(255, 140, 0, 0.1);
+}
+.sql-workspace__attempts svg {
+  color: #ae4a17;
+  opacity: 0.8;
+}
+.sql-workspace__attempts-count {
+  font-weight: 600;
+  color: #FFB347;
+}
 .sql-workspace__complete-btn {
   display: flex;
   flex-direction: row;

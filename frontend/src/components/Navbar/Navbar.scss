@@ -5,15 +5,15 @@
   position: sticky;
   top: 0;
   z-index: v.$z-navbar;
-  background: rgba(v.$color-bg, 0.75);
+  background: color-mix(in srgb, var(--color-bg) 75%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid v.$color-border;
+  border-bottom: 1px solid var(--color-border);
   transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 
   &--scrolled {
-    background: rgba(v.$color-bg, 0.92);
-    border-bottom-color: rgba(v.$color-primary, 0.25);
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    border-bottom-color: var(--color-primary-glow);
     box-shadow: 0 1px 32px rgba(0, 0, 0, 0.4);
   }
 
@@ -117,7 +117,7 @@
     width: 36px;
     height: 36px;
     background: transparent;
-    border: 1px solid v.$color-border;
+    border: 1px solid var(--color-border);
     border-radius: v.$radius-md;
     color: v.$color-muted;
     cursor: pointer;
@@ -140,12 +140,12 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: v.$gradient-primary;
+    background: var(--gradient-primary);
     font-size: 12px;
     font-weight: v.$font-weight-bold;
     color: #fff;
     flex-shrink: 0;
-    box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+    box-shadow: 0 0 10px var(--color-primary-glow);
   }
 
   &__user-name {
@@ -161,8 +161,7 @@
   }
 
   &__cta {
-    // Extra glow for primary CTA in navbar
-    box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 0 12px var(--color-primary-glow);
   }
 
   // ── Hamburger (mobile) ──
@@ -171,7 +170,7 @@
     width: 40px;
     height: 40px;
     background: transparent;
-    border: 1px solid v.$color-border;
+    border: 1px solid var(--color-border);
     border-radius: v.$radius-md;
     cursor: pointer;
     color: v.$color-body;
@@ -195,8 +194,8 @@
     flex-direction: column;
     gap: v.$space-2;
     padding: v.$space-4;
-    border-top: 1px solid v.$color-border;
-    background: rgba(v.$color-surface, 0.98);
+    border-top: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--color-surface) 98%, transparent);
     backdrop-filter: blur(16px);
     animation: fadeInDown 0.2s ease;
 
@@ -211,7 +210,7 @@
     padding: v.$space-2 v.$space-3;
     font-size: v.$font-size-sm;
     color: v.$color-body;
-    border-bottom: 1px solid v.$color-border;
+    border-bottom: 1px solid var(--color-border);
     padding-bottom: v.$space-3;
     margin-bottom: v.$space-1;
   }

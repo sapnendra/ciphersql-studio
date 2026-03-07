@@ -38,7 +38,7 @@
     &--purple {
       width: 400px;
       height: 300px;
-      background: radial-gradient(circle, rgba(124,58,237,0.5), transparent 70%);
+      background: radial-gradient(circle, rgba(255,85,0,0.5), transparent 70%);
       top: -60px;
       left: 50%;
       transform: translateX(-60%);
@@ -76,7 +76,7 @@
     animation: spinSlow 8s linear infinite;
 
     &-poly {
-      filter: drop-shadow(0 0 12px rgba(124,58,237,0.6));
+      filter: drop-shadow(0 0 12px rgba(255,85,0,0.6));
     }
   }
 
@@ -131,7 +131,7 @@
     background: v.$gradient-primary;
     border-radius: v.$radius-full;
     transition: width 80ms linear;
-    box-shadow: 0 0 8px rgba(124,58,237,0.6);
+    box-shadow: 0 0 8px rgba(255,85,0,0.6);
   }
 
   &__pct {

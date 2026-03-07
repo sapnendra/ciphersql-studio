@@ -1,8 +1,9 @@
 import { useState, useCallback } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -24,19 +25,25 @@ const PublicRoute = ({ children }) => {
   return !user ? children : <Navigate to="/assignments" replace />;
 };
 
-const AppRoutes = () => (
-  <BrowserRouter>
-    <Navbar />
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login"  element={<PublicRoute><LoginPage /></PublicRoute>} />
-      <Route path="/signup" element={<PublicRoute><SignupPage /></PublicRoute>} />
-      <Route path="/assignments" element={<ProtectedRoute><AssignmentsPage /></ProtectedRoute>} />
-      <Route path="/assignments/:id" element={<ProtectedRoute><WorkspacePage /></ProtectedRoute>} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-  </BrowserRouter>
-);
+const AppRoutes = () => {
+  const location = useLocation();
+  const isWorkspace = /^\/assignments\/[^/]+/.test(location.pathname);
+
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login"  element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><SignupPage /></PublicRoute>} />
+        <Route path="/assignments" element={<ProtectedRoute><AssignmentsPage /></ProtectedRoute>} />
+        <Route path="/assignments/:id" element={<ProtectedRoute><WorkspacePage /></ProtectedRoute>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {!isWorkspace && <Footer />}
+    </>
+  );
+};
 
 const App = () => {
   const [showLoading, setShowLoading] = useState(true);
@@ -45,7 +52,7 @@ const App = () => {
   return (
     <AuthProvider>
       {showLoading && <LoadingScreen onDone={handleLoadDone} />}
-      {!showLoading && <AppRoutes />}
+      {!showLoading && <BrowserRouter><AppRoutes /></BrowserRouter>}
       <Toaster
         position="bottom-right"
         toastOptions={{

@@ -1,10 +1,28 @@
+.sql-editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 280px;
+  overflow: hidden;
+}
+.sql-editor__monaco {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.sql-editor__monaco > section,
+.sql-editor__monaco .monaco-editor,
+.sql-editor__monaco .overflow-guard {
+  height: 100% !important;
+}
 .sql-editor__loading {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 240px;
-  color: #9CA3AF;
+  flex: 1;
+  min-height: 240px;
+  color: #8A7060;
   font-size: 0.875rem;
-  background: #111827;
+  background: #180C00;
   font-family: "JetBrains Mono", monospace;
 }/*# sourceMappingURL=SQLEditor.css.map */

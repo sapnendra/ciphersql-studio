@@ -19,27 +19,27 @@ $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
 // ─── Colors: Primary ─────────────────────────────────────────
-$color-primary: #7C3AED;
-$color-primary-end: #A855F7;
-$color-primary-dark: #6D28D9;
-$color-primary-light: #C4B5FD;
-$color-primary-glow: rgba(124, 58, 237, 0.35);
+$color-primary: #ae4a17;
+$color-primary-end: #c86e00;
+$color-primary-dark: #CC4400;
+$color-primary-light: #FFB347;
+$color-primary-glow: rgba(255, 85, 0, 0.35);
 
 // ─── Colors: Secondary ───────────────────────────────────────
 $color-secondary: #22C55E;
 $color-secondary-glow: rgba(34, 197, 94, 0.35);
 
 // ─── Colors: Background ──────────────────────────────────────
-$color-bg: #0B0F1A;
-$color-bg-secondary: #0F172A;
-$color-surface: #111827;
-$color-card: #0B1220;
-$color-card-hover: #0f1829;
+$color-bg: #0A0500;
+$color-bg-secondary: #110800;
+$color-surface: #110800;
+$color-card: #180C00;
+$color-card-hover: #201000;
 
 // ─── Colors: Text ────────────────────────────────────────────
-$color-heading: #F8FAFC;
-$color-body: #CBD5E1;
-$color-muted: #64748B;
+$color-heading: #FFFFFF;
+$color-body: #EDD9C8;
+$color-muted: #8A7060;
 
 // ─── Colors: Status ──────────────────────────────────────────
 $color-success: #22C55E;
@@ -48,13 +48,13 @@ $color-warning: #F59E0B;
 $color-info: #3B82F6;
 
 // ─── Colors: Border ──────────────────────────────────────────
-$color-border: rgba(255, 255, 255, 0.06);
-$color-border-subtle: rgba(255, 255, 255, 0.04);
-$color-border-glow: rgba(124, 58, 237, 0.4);
+$color-border: rgba(255, 140, 0, 0.10);
+$color-border-subtle: rgba(255, 140, 0, 0.05);
+$color-border-glow: rgba(255, 85, 0, 0.4);
 
 // ─── Gradients ───────────────────────────────────────────────
 $gradient-primary: linear-gradient(135deg, #{$color-primary}, #{$color-primary-end});
-$gradient-text: linear-gradient(135deg, #A78BFA, #7C3AED, #A855F7);
+$gradient-text: linear-gradient(135deg, #FFB347, #FF5500, #FF8C00);
 $gradient-green: linear-gradient(135deg, #22C55E, #16A34A);
 
 // ─── Spacing ─────────────────────────────────────────────────
@@ -89,7 +89,7 @@ $bp-desktop: 1281px;
 $shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
 $shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
 $shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-$shadow-glow: 0 0 24px rgba(124, 58, 237, 0.4), 0 0 48px rgba(124, 58, 237, 0.15);
+$shadow-glow: 0 0 24px rgba(255, 85, 0, 0.4), 0 0 48px rgba(255, 85, 0, 0.15);
 $shadow-glow-green: 0 0 24px rgba(34, 197, 94, 0.3);
 $shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.04);
 
@@ -103,5 +103,42 @@ $z-navbar: 100;
 $z-loading: 999;
 $z-modal: 200;
 $z-toast: 300;
+
+
+// ══════════════════════════════════════════════════════════════
+//  ALTERNATE PALETTE — BookExpert (Orange Dark Theme)
+//  Source: bookexpert.sapnendra.tech
+//
+//  To switch the entire app to this theme, replace the primary
+//  color block above with these values:
+//
+//    $color-primary:      $palette-be-primary;
+//    $color-primary-end:  $palette-be-primary-end;
+//    $color-primary-glow: $palette-be-primary-glow;
+//    $color-bg:           $palette-be-bg;
+//    $color-bg-secondary: $palette-be-surface;
+//    $color-surface:      $palette-be-card;
+//    $color-card:         $palette-be-card;
+//    $color-body:         $palette-be-body;
+//    $color-muted:        $palette-be-muted;
+//    $color-border:       $palette-be-border;
+//    $gradient-primary:   linear-gradient(135deg, $palette-be-primary, $palette-be-primary-end);
+//    $gradient-text:      linear-gradient(135deg, #FFB347, $palette-be-primary, #FF8C00);
+//    $shadow-glow:        0 0 24px $palette-be-primary-glow, 0 0 48px rgba(255, 85, 0, 0.12);
+// ══════════════════════════════════════════════════════════════
+
+// Extracted from screenshot: deep warm backgrounds, vivid orange CTA
+$palette-be-bg:           #0A0500;   // Near-black with warm brown tint (body bg)
+$palette-be-surface:      #110800;   // Slightly lighter surface for sections
+$palette-be-card:         #180C00;   // Card / component background
+$palette-be-primary:      #FF5500;   // Vivid orange — primary CTA & accent
+$palette-be-primary-end:  #FF8C00;   // Amber gradient endpoint
+$palette-be-primary-dark: #CC4400;   // Darker orange for pressed/active states
+$palette-be-primary-glow: rgba(255, 85, 0, 0.35);
+$palette-be-secondary:    #22C55E;   // Keep green as secondary (same as current)
+$palette-be-heading:      #FFFFFF;   // Pure white headings
+$palette-be-body:         #EDD9C8;   // Warm cream for body text
+$palette-be-muted:        #8A7060;   // Warm muted for secondary text
+$palette-be-border:       rgba(255, 140, 0, 0.10); // Warm orange-tinted border
 
 

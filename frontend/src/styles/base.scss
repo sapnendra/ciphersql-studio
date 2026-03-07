@@ -4,6 +4,55 @@
 // ─── Google Fonts ────────────────────────────────────────────
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
+// ─── CSS Custom Properties (Theme Tokens) ────────────────────
+// These map SCSS variables to CSS vars, enabling runtime theme
+// switching via JS (e.g., document.documentElement.className = 'theme-be').
+:root {
+  // Colors — active theme (currently: Purple Dark)
+  --color-primary:        #{v.$color-primary};
+  --color-primary-end:    #{v.$color-primary-end};
+  --color-primary-dark:   #{v.$color-primary-dark};
+  --color-primary-light:  #{v.$color-primary-light};
+  --color-primary-glow:   #{v.$color-primary-glow};
+  --color-secondary:      #{v.$color-secondary};
+  --color-bg:             #{v.$color-bg};
+  --color-bg-secondary:   #{v.$color-bg-secondary};
+  --color-surface:        #{v.$color-surface};
+  --color-card:           #{v.$color-card};
+  --color-heading:        #{v.$color-heading};
+  --color-body:           #{v.$color-body};
+  --color-muted:          #{v.$color-muted};
+  --color-border:         #{v.$color-border};
+  --gradient-primary:     #{v.$gradient-primary};
+  --shadow-glow:          #{v.$shadow-glow};
+
+  // Typography
+  --font-heading:         #{v.$font-heading};
+  --font-body:            #{v.$font-body};
+  --font-mono:            #{v.$font-mono};
+}
+
+// ─── Theme: BookExpert Orange Dark ───────────────────────────
+// Apply class "theme-be" to <html> element to switch theme.
+// Example: document.documentElement.className = 'theme-be';
+.theme-be {
+  --color-primary:        #{v.$palette-be-primary};
+  --color-primary-end:    #{v.$palette-be-primary-end};
+  --color-primary-dark:   #{v.$palette-be-primary-dark};
+  --color-primary-light:  #FFB347;
+  --color-primary-glow:   #{v.$palette-be-primary-glow};
+  --color-bg:             #{v.$palette-be-bg};
+  --color-bg-secondary:   #{v.$palette-be-surface};
+  --color-surface:        #{v.$palette-be-surface};
+  --color-card:           #{v.$palette-be-card};
+  --color-heading:        #{v.$palette-be-heading};
+  --color-body:           #{v.$palette-be-body};
+  --color-muted:          #{v.$palette-be-muted};
+  --color-border:         #{v.$palette-be-border};
+  --gradient-primary:     linear-gradient(135deg, #{v.$palette-be-primary}, #{v.$palette-be-primary-end});
+  --shadow-glow:          0 0 24px #{v.$palette-be-primary-glow}, 0 0 48px rgba(255, 85, 0, 0.12);
+}
+
 // ─── CSS Reset ───────────────────────────────────────────────
 *,
 *::before,
@@ -19,22 +68,38 @@ html {
 }
 
 body {
-  font-family: v.$font-body;
-  background-color: v.$color-bg;
-  color: v.$color-body;
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-body);
   line-height: 1.6;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  // Ambient glow blobs — fixed so they don't scroll
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.12), transparent 40%),
+    radial-gradient(circle at 20% 20%, var(--color-primary-glow), transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(34, 197, 94, 0.07), transparent 40%);
   background-attachment: fixed;
 
   @include m.custom-scrollbar;
 }
 
+// ── Full-page grid texture ─────────────────────────────────
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
 #root {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -42,8 +107,8 @@ body {
 
 // ─── Typography Defaults ─────────────────────────────────────
 h1, h2, h3, h4, h5, h6 {
-  font-family: v.$font-heading;
-  color: v.$color-heading;
+  font-family: var(--font-heading);
+  color: var(--color-heading);
   font-weight: v.$font-weight-bold;
   line-height: 1.25;
 }
@@ -54,18 +119,14 @@ h3 { font-size: v.$font-size-lg; }
 h4 { font-size: v.$font-size-md; }
 
 p {
-  color: v.$color-body;
+  color: var(--color-body);
   line-height: 1.6;
 }
 
 a {
-  color: v.$color-primary-light;
+  color: var(--color-primary-light);
   text-decoration: none;
   transition: color v.$transition-fast;
-
-  &:hover {
-    color: v.$color-primary;
-  }
 }
 
 code, pre {
@@ -91,8 +152,8 @@ ul, ol {
 
 // ─── Selection ───────────────────────────────────────────────
 ::selection {
-  background: rgba(v.$color-primary, 0.3);
-  color: v.$color-heading;
+  background: var(--color-primary-glow);
+  color: var(--color-heading);
 }
 
 // ─── Utility Classes ─────────────────────────────────────────

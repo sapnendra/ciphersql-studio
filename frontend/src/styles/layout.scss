@@ -27,14 +27,6 @@
   @include m.flex-center;
   background: v.$color-bg;
   padding: v.$space-4;
-
-  // Subtle grid pattern
-  background-image: radial-gradient(
-    circle at 25px 25px,
-    rgba(v.$color-border, 0.3) 1px,
-    transparent 0
-  );
-  background-size: 50px 50px;
 }
 
 // ─── Assignments Grid ────────────────────────────────────────
@@ -72,6 +64,7 @@
     grid-template-rows: 1fr;
     gap: v.$space-4;
     padding: v.$space-4;
+    height: calc(100vh - 64px); // fixed height so grid rows fill viewport
   }
 
   &__left {
@@ -87,8 +80,9 @@
   &__right {
     display: flex;
     flex-direction: column;
-    gap: v.$space-4;
+    gap: v.$space-3;
     min-height: 0;
+    height: 100%; // fill the grid row on desktop
   }
 }
 

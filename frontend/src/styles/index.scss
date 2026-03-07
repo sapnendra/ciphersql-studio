@@ -2,7 +2,8 @@
 @use 'variables';
 @use 'mixins';
 @use 'base';
-@use 'layout';@use 'animations';
+@use 'layout';
+@use 'animations';
 // ─── Component Partials ───────────────────────────────────────
 @use 'components/buttons';
 @use 'components/cards';
@@ -11,7 +12,7 @@
 
 
 ::selection {
-  background: #c823ff52;
+  background: #de510052;
   color: #fff;
 }
 

@@ -7,39 +7,31 @@
   @include m.focus-ring;
 
   &--primary {
-    background: v.$gradient-primary;
+    background: var(--gradient-primary);
     color: #fff;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
-      opacity: 0;
-      transition: opacity v.$transition-fast;
-    }
 
     &:hover:not(:disabled) {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: v.$shadow-glow;
-      &::before { opacity: 1; }
+      box-shadow: var(--shadow-glow);
+      filter: brightness(1.15) saturate(1.1);
     }
 
-    &:active:not(:disabled) { transform: translateY(0) scale(1); }
+    &:active:not(:disabled) {
+      transform: translateY(0) scale(1);
+      filter: brightness(1);
+    }
   }
 
   &--secondary {
     background: transparent;
-    color: v.$color-body;
-    border: 1px solid v.$color-border;
+    color: var(--color-body);
+    border: 1px solid var(--color-border);
 
     &:hover:not(:disabled) {
-      border-color: rgba(v.$color-primary, 0.5);
-      color: v.$color-primary-light;
-      background: rgba(v.$color-primary, 0.08);
-      box-shadow: 0 0 12px rgba(v.$color-primary, 0.15);
+      border-color: var(--color-primary-glow);
+      color: var(--color-primary-light);
+      background: rgba(0, 0, 0, 0.15);
+      box-shadow: 0 0 12px var(--color-primary-glow);
     }
   }
 
@@ -62,11 +54,13 @@
 
   &--ghost {
     background: transparent;
-    color: v.$color-muted;
+    color: var(--color-body);
+    border: 1px solid var(--color-border);
 
     &:hover:not(:disabled) {
-      color: v.$color-body;
-      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-heading);
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.12);
     }
   }
 

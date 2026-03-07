@@ -2,9 +2,29 @@
 @use '../../styles/mixins' as m;
 
 .sql-editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1;          // stretch inside .workspace-layout__right
+  min-height: 280px;
+  overflow: hidden;
+
+  &__monaco {
+    flex: 1;         // take remaining height after toolbar
+    min-height: 0;
+    overflow: hidden;
+
+    // Monaco mounts an absolutely-positioned container — make it fill
+    > section,
+    .monaco-editor,
+    .overflow-guard {
+      height: 100% !important;
+    }
+  }
+
   &__loading {
     @include m.flex-center;
-    height: 240px;
+    flex: 1;
+    min-height: 240px;
     color: v.$color-muted;
     font-size: v.$font-size-sm;
     background: v.$color-card;

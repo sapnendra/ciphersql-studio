@@ -8,6 +8,28 @@
     flex-wrap: wrap;
   }
 
+  &__attempts {
+    @include m.flex(row, flex-start, center);
+    gap: 6px;
+    font-size: v.$font-size-sm;
+    font-family: v.$font-mono;
+    color: v.$color-body;
+    user-select: none;
+    white-space: nowrap;
+    padding-right: v.$space-2;
+    border-right: 1px solid v.$color-border;
+
+    svg {
+      color: v.$color-primary;
+      opacity: 0.8;
+    }
+
+    &-count {
+      font-weight: v.$font-weight-semibold;
+      color: v.$color-primary-light;
+    }
+  }
+
   &__complete-btn {
     @include m.flex(row, center, center);
     gap: v.$space-2;

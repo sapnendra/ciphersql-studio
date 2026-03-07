@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { Play, CheckCircle } from 'lucide-react';
+import { useState, useCallback, useEffect } from 'react';
+import { Play, CheckCircle, RotateCcw } from 'lucide-react';
 import QuestionPanel from '../QuestionPanel/QuestionPanel';
 import SampleDataViewer from '../SampleDataViewer/SampleDataViewer';
 import SQLEditor from '../SQLEditor/SQLEditor';
@@ -15,6 +15,22 @@ const SQLWorkspace = ({ assignment }) => {
   const [queryError, setQueryError] = useState(null);
   const [running, setRunning] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+
+  // Load existing progress (attempt count, completion, last query)
+  useEffect(() => {
+    progressAPI
+      .getByAssignment(assignment._id)
+      .then((res) => {
+        const p = res.data?.data;
+        if (p) {
+          setAttempts(p.attemptCount || 0);
+          setCompleted(p.isCompleted || false);
+          if (p.sqlQuery) setQuery(p.sqlQuery);
+        }
+      })
+      .catch(() => null);
+  }, [assignment._id]);
 
   const handleExecute = useCallback(async () => {
     if (!query.trim()) {
@@ -33,6 +49,7 @@ const SQLWorkspace = ({ assignment }) => {
       });
 
       setResults(res.data);
+      setAttempts((prev) => prev + 1);
 
       // Save progress (not yet marked complete)
       await progressAPI
@@ -105,6 +122,13 @@ const SQLWorkspace = ({ assignment }) => {
             userQuery={query}
             sampleTables={assignment.sampleTables}
           />
+
+          {/* Attempt counter */}
+          <div className="sql-workspace__attempts" title="Total query runs for this assignment">
+            <RotateCcw size={13} />
+            <span className="sql-workspace__attempts-count">{attempts}</span>
+            <span>{attempts === 1 ? 'attempt' : 'attempts'}</span>
+          </div>
 
           <button
             className={`btn btn--sm sql-workspace__complete-btn${completed ? ' sql-workspace__complete-btn--done' : ''}`}

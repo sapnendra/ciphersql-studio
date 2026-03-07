@@ -1,0 +1,22 @@
+{
+  "name": "CipherSQL Studio",
+  "short_name": "CipherSQL",
+  "description": "Interactive SQL learning sandbox with live PostgreSQL queries, AI hints, and 30+ hands-on assignments.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0500",
+  "theme_color": "#FF5500",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    }
+  ]
+}

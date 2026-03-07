@@ -2,11 +2,20 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useAssignment } from '../hooks/useAssignments';
 import SQLWorkspace from '../components/SQLWorkspace/SQLWorkspace';
+import useMeta from '../hooks/useMeta';
 import './WorkspacePage.scss';
 
 const WorkspacePage = () => {
   const { id } = useParams();
   const { assignment, loading, error } = useAssignment(id);
+
+  // Dynamic title updates once assignment is loaded
+  useMeta({
+    title: assignment ? assignment.title : 'SQL Workspace',
+    description: assignment
+      ? `Practice: ${assignment.title}. Write and run real SQL queries against a live PostgreSQL sandbox.`
+      : 'Write and run SQL queries against a live PostgreSQL sandbox.',
+  });
 
   if (loading) {
     return (

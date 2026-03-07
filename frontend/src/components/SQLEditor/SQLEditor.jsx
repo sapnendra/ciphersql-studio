@@ -67,7 +67,7 @@ const SQLEditor = ({ value, onChange, onExecute, disabled }) => {
 
       <div className="sql-editor__monaco">
         <Editor
-          height="240px"
+          height="100%"
           language="sql"
           theme="vs-dark"
           value={value || DEFAULT_QUERY}

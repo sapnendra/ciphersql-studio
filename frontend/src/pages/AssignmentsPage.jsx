@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, AlertTriangle } from 'lucide-react';
 import { useAssignments } from '../hooks/useAssignments';
 import AssignmentCard from '../components/AssignmentCard/AssignmentCard';
+import useMeta from '../hooks/useMeta';
 import './AssignmentsPage.scss';
 
 const DIFFICULTIES = ['All', 'Easy', 'Medium', 'Hard'];
 
 const AssignmentsPage = () => {
+  useMeta({
+    title: 'Assignments',
+    description:
+      'Browse 30+ SQL assignments from beginner SELECT queries to advanced JOINs, aggregations, CTEs, and window functions.',
+  });
+
   const [page, setPage] = useState(1);
   const [difficulty, setDifficulty] = useState('');
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+
+  // Trigger search 300ms after the user stops typing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearch(searchInput.trim());
+      setPage(1);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   const { assignments, pagination, loading, error } = useAssignments({
     page,
@@ -21,12 +37,6 @@ const AssignmentsPage = () => {
 
   const handleDifficulty = (d) => {
     setDifficulty(d === 'All' ? '' : d);
-    setPage(1);
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearch(searchInput);
     setPage(1);
   };
 
@@ -49,23 +59,17 @@ const AssignmentsPage = () => {
 
       {/* Filters */}
       <div className="assignments-page__filters">
-        {/* Search */}
-        <form
-          className="assignments-page__search"
-          onSubmit={handleSearch}
-          role="search"
-        >
+        {/* Search — debounced, no submit button needed */}
+        <div className="assignments-page__search" role="search">
           <input
             type="search"
             placeholder="Search assignments…"
             className="assignments-page__search-input"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
+            aria-label="Search assignments"
           />
-          <button type="submit" className="btn btn--primary btn--sm">
-            Search
-          </button>
-        </form>
+        </div>
 
         {/* Difficulty Filter */}
         <div className="assignments-page__difficulty-filter">

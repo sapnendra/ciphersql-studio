@@ -48,26 +48,10 @@ const Navbar = () => {
               Assignments
             </NavLink>
           )}
-          {!user && (
-            <>
-              <span className="navbar__link navbar__link--ghost">
-                <BookOpen size={14} />
-                Docs
-              </span>
-              <span className="navbar__link navbar__link--ghost">
-                <Zap size={14} />
-                Resources
-              </span>
-            </>
-          )}
         </div>
 
         {/* Right Section */}
         <div className="navbar__actions">
-          <button className="navbar__icon-btn" aria-label="Search">
-            <Search size={16} />
-          </button>
-
           {user ? (
             <div className="navbar__user">
               <div className="navbar__user-avatar">
