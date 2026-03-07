@@ -32,7 +32,7 @@ const AuthForm = ({ mode = 'login' }) => {
 
       login(res.data.user, res.data.token);
       toast.success(isLogin ? 'Welcome back!' : 'Account created!');
-      navigate('/assignments');
+      navigate('/');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Something went wrong.');
     } finally {

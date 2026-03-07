@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Hexagon, LogOut, LogIn, UserPlus, Menu, X, Search, BookOpen, Zap } from 'lucide-react';
+import { Database, LogOut, LogIn, UserPlus, Menu, X, BookOpen, Zap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import './Navbar.scss';
 
@@ -26,13 +26,9 @@ const Navbar = () => {
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="navbar__container">
         {/* Logo */}
-        <Link to="/" className="navbar__logo" onClick={() => setMenuOpen(false)}>
-          <span className="navbar__logo-hex">
-            <Hexagon size={22} strokeWidth={1.5} />
-          </span>
-          <span className="navbar__logo-text">
-            Cipher<span className="navbar__logo-accent">SQL</span>Studio
-          </span>
+        <Link to="/" className="footer__logo">
+          <Database size={18} />
+          <span>Cipher<span className="footer__logo-accent">SQL</span>Studio</span>
         </Link>
 
         {/* Center Nav Links */}
